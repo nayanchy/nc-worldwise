@@ -37,28 +37,28 @@
       "id": 98443197
     },
     {
-      "cityName": "Barcelona",
+      "cityName": "Manzanares",
       "country": "Spain",
       "emoji": "🇪🇸",
-      "date": "2027-07-15T08:22:53.976Z",
-      "notes": "",
+      "date": "2024-01-03T13:25",
+      "notes": "dfsfsd",
       "position": {
-        "lat": 40.46635901755316,
-        "lng": -3.7133789062500004
+        "lat": "38.98503278695909",
+        "lng": "-3.4277343750000004"
       },
-      "id": 17806753
+      "id": 98443198
     },
     {
-      "cityName": "Munich",
-      "country": "Germany",
-      "emoji": "🇩🇪",
-      "date": "2027-07-15T08:22:53.976Z",
-      "notes": "",
+      "cityName": "Gazipur",
+      "country": "Bangladesh",
+      "emoji": "🇧🇩",
+      "date": "2024-01-09T11:51",
+      "notes": "This is the next big city in Bangladesh",
       "position": {
-        "lat": 40.46635901755316,
-        "lng": -3.7133789062500004
+        "lat": "24.32707654001865",
+        "lng": "90.42846679687501"
       },
-      "id": 17806752
+      "id": 98443199
     }
   ]
 }

@@ -1,5 +1,5 @@
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { CitiesContextProvider } from "./context/CitiesContext";
 
 import Homepage from "./pages/Homepage";
 import Login from "./pages/Login";
@@ -11,53 +11,40 @@ import CityList from "./components/CityList";
 import CountryList from "./components/CountryList";
 import City from "./components/City";
 import Form from "./components/Form";
-const BASE_URL = "//localhost:8000";
+import { AuthContextProvider } from "./context/FakeAuthContext";
+import ProtectedRoute from "./pages/ProtectedRoute";
+
 function App() {
-  const [cities, setCities] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-
-  useEffect(() => {
-    const fetchCities = async () => {
-      setIsLoading(true);
-      try {
-        const res = await fetch(`${BASE_URL}/cities`);
-        const cities = await res.json();
-        // setCities((prevCities) => {
-        //   return { ...prevCities, cities };
-        // });
-        setCities(cities);
-      } catch (error) {
-        console.error("Error fetching cities");
-      } finally {
-        setIsLoading(false);
-      }
-    };
-    fetchCities();
-  }, []);
-
   return (
     <BrowserRouter>
-      <Routes>
-        <Route index element={<Homepage />} />
-        <Route path="pricing" element={<Pricing />} />
-        <Route path="product" element={<Product />} />
-        <Route path="login" element={<Login />} />
-        <Route path="app" element={<AppLayout />}>
-          <Route index element={<Navigate replace to="cities" />} />
-          <Route
-            path="cities"
-            element={<CityList cities={cities} isLoading={isLoading} />}
-          />
-          <Route path="cities/:id" element={<City cities={cities} />} />
-          <Route
-            path="countries"
-            element={<CountryList cities={cities} isLoading={isLoading} />}
-          />
-          <Route path="form" element={<Form />} />
-        </Route>
+      <CitiesContextProvider>
+        <AuthContextProvider>
+          <Routes>
+            <Route index element={<Homepage />} />
+            <Route path="pricing" element={<Pricing />} />
+            <Route path="product" element={<Product />} />
 
-        <Route path="*" element={<PageNotFound />} />
-      </Routes>
+            <Route path="login" element={<Login />} />
+
+            <Route
+              path="app"
+              element={
+                <ProtectedRoute>
+                  <AppLayout />
+                </ProtectedRoute>
+              }
+            >
+              <Route index element={<Navigate replace to="cities" />} />
+              <Route path="cities" element={<CityList />} />
+              <Route path="cities/:id" element={<City />} />
+              <Route path="countries" element={<CountryList />} />
+              <Route path="form" element={<Form />} />
+            </Route>
+
+            <Route path="*" element={<PageNotFound />} />
+          </Routes>
+        </AuthContextProvider>
+      </CitiesContextProvider>
     </BrowserRouter>
   );
 }
